@@ -12,15 +12,16 @@ export const loginPage = () => {
   const form = document.createElement("form");
 
   form.classList.add(
-    "flex",
-    "flex-col",
-    "w-1/6",
-    "gap-4",
+    "w-full",
+    "max-w-md", 
     "bg-white",
-    "p-8",
+    "p-6",
     "rounded",
-    "shadow-md"
+    "shadow-md",
+    "space-y-4",
+    "md:w-1/3"
   );
+  
 
   const title = document.createElement("h2");
 
