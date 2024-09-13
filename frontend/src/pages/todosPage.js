@@ -209,6 +209,7 @@ export const todosPage = () => {
         .then(() => {
           modal.classList.add("hidden");
           location.reload(); 
+          window.alert("La tarea fue editada correctamente!")
         })
         .catch((error) => {
           console.error("Error al actualizar la tarea:", error);
@@ -232,6 +233,7 @@ export const todosPage = () => {
         return response.json();
       })
       .then(() => {
+        window.alert("Se ha eliminado correctamene la tarea")
         location.reload(); 
       })
       .catch((error) => {

@@ -122,6 +122,7 @@ export const addTask = () => {
   
         const data = await response.json();
         console.log(data);
+        window.alert("se ha creado la tarea correctamente");
         window.location.pathname = "/todos"; // Redirige a la página de tareas después de agregar
       } catch (error) {
         console.error("Error al agregar la tarea:", error);
