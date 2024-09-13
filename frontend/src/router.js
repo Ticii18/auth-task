@@ -1,6 +1,7 @@
 import { loginPage } from "./pages/loginPage";
 import { homePage } from "./pages/homePage";
 import { todosPage } from "./pages/todosPage";
+import { addTask } from "./pages/addTask";
 
 import { validateSession } from "./helpers/validateSession";
 
@@ -25,6 +26,10 @@ export async function router(path, app) {
 
   if (path === "/todos") {
     app.appendChild(todosPage());
+    return;
+  }
+  if (path === "/todos/add") {
+    app.appendChild(addTask());
     return;
   }
 }

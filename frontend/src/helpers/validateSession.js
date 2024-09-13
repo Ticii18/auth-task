@@ -5,7 +5,8 @@ export const validateSession = async () => {
   });
 
   if (response.ok) {
-    return true;
+    const data = await response.json();
+    return data.userId, true;
   } else {
     return false;
   }

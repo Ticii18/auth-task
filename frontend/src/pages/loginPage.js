@@ -77,13 +77,16 @@ export const loginPage = () => {
   form.appendChild(passwordInput);
   form.appendChild(submitButton);
 
+  const divError = document.createElement("div");
+  divError.id = "message";
+  form.appendChild(divError);
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    // Validación básica
     if (!username || !password) {
       document.getElementById("message").innerText =
         "Por favor, completa todos los campos.";
@@ -120,8 +123,23 @@ export const loginPage = () => {
 
       const data = await response.json();
       console.log(data);
+      
+      // Store user ID in localStorage
+      localStorage.setItem("userId", data.userId);
+
       window.location.pathname = "/home";
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      divError.innerText = "Error al iniciar sesión.";
+      divError.classList.add(
+        "bg-danger",
+        "text-white",
+        "text-center",
+        "rounded",
+        "p-2",
+        "mt-3"
+      );
+    }
   });
 
   container.appendChild(form);
