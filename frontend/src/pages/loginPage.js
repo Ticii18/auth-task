@@ -127,7 +127,7 @@ export const loginPage = () => {
       // Store user ID in localStorage
       localStorage.setItem("userId", data.userId);
 
-      window.location.pathname = "/home";
+      window.location.pathname = "/todos";
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       divError.innerText = "Error al iniciar sesión.";

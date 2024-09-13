@@ -10,6 +10,7 @@ export const homePage = () => {
     "flex-col",
     "gap-4"
   );
+  
 
   const title = document.createElement("h1");
 

@@ -1,12 +1,8 @@
 import { database } from "../db/database.js";
 
-export const getAllTodosCtrl = (req, res) => {
-  const userId = req.user.id;
-  const todos = database.todos.filter(todo => todo.owner === userId);
 
-  res.json({ todos });
-};
 
+// Obtener tareas por ID de usuario (como parámetro de ruta)
 export const getTasksFromId = (req, res) => {
   const { userId } = req.params;
 
@@ -19,6 +15,7 @@ export const getTasksFromId = (req, res) => {
   return res.json({ todos });
 };
 
+// Crear una nueva tarea
 export const postTask = (req, res) => {
   const { title, completed } = req.body;
   const owner = req.user.id; // Asignar el ID del usuario autenticado
@@ -34,44 +31,39 @@ export const postTask = (req, res) => {
   res.json({ message: 'Tarea agregada correctamente', newTask });
 };
 
-
+// Actualizar una tarea existente
 export const updateTask = (req, res) => {
   const userId = req.user.id;
-  const { id, title, completed } = req.body;
+  const { title, completed } = req.body;
+  const { id } = req.params; // Obtener el ID desde los parámetros de la ruta
 
-  // Verificar que el ID esté presente en el cuerpo de la solicitud
-  if (!id) {
-    return res.status(400).json({ message: "ID de tarea requerido" });
-  }
-
-  const task = database.todos.find(task => task.id === id && task.owner === userId);
+  // Verificar si la tarea pertenece al usuario
+  const task = database.todos.find(task => task.id === parseInt(id, 10) && task.owner === userId);
 
   if (!task) {
     return res.status(404).json({ message: "Tarea no encontrada o no autorizada" });
   }
 
+  // Actualizar los campos de la tarea
   task.title = title;
   task.completed = completed;
 
   res.json({ message: 'Tarea actualizada correctamente', task });
 };
 
-
+// Eliminar una tarea existente
 export const deleteTask = (req, res) => {
   const userId = req.user.id;
-  const { id } = req.body;
+  const { id } = req.params; // Obtener el ID desde los parámetros de la ruta
 
-  // Verificar que el ID esté presente en el cuerpo de la solicitud
-  if (!id) {
-    return res.status(400).json({ message: "ID de tarea requerido" });
-  }
-
-  const taskIndex = database.todos.findIndex(task => task.id === id && task.owner === userId);
+  // Verificar si la tarea pertenece al usuario
+  const taskIndex = database.todos.findIndex(task => task.id === parseInt(id, 10) && task.owner === userId);
 
   if (taskIndex === -1) {
     return res.status(404).json({ message: "Tarea no encontrada o no autorizada" });
   }
 
+  // Eliminar la tarea
   database.todos.splice(taskIndex, 1);
   res.json({ message: 'Tarea eliminada correctamente' });
 };

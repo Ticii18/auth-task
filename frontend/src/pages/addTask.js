@@ -109,7 +109,7 @@ export const addTask = () => {
       try {
         const response = await fetch(`http://localhost:4000/todos/add/${userId}`, {
           method: "POST",
-          credentials: "include", // Asegúrate de enviar las cookies de sesión
+          credentials: "include", 
           headers: {
             "Content-Type": "application/json",
           },
